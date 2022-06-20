@@ -39,7 +39,7 @@ const renderParrots = (products) => {
     let size = elCard.querySelector(".badge");
     let elYear = elCard.querySelector(".born");
     // let features = elCard.querySelector(".badg") madsjiojoijkjakldjfalk;sj
-    let featuresWrapp = elCard.querySelector('.features-wrapp')
+    let featuresWrapp = elCard.querySelector('.features-list')
     let editBtn = elCard.querySelector(".edit");
     let likedBtn = elCard.querySelector('.liked')
 
@@ -51,7 +51,6 @@ const renderParrots = (products) => {
     elYear.textContent = product.birthDate;
     editBtn.dataset.id = product.id;
     likedBtn.dataset.id =product.id;
-    console.log(likedBtn.dataset.id);
     let elItem = document.createElement("li");
     elItem.className = "col-6 item";
     elItem.dataset.id = product.id;
@@ -60,7 +59,6 @@ const renderParrots = (products) => {
     elWrapperListParrots.appendChild(elFragmentWrapper);
 
     elFeaturesTemp = elCard.querySelector('.features-temp')
-    console.log(elFeaturesTemp);
 
     editBtn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -68,8 +66,15 @@ const renderParrots = (products) => {
 
       console.log(elEditData.dataset.id);
     });
+    let parrotFeatures = product.features.split(',')
+    parrotFeatures.forEach((feat) =>{
+      let elFeaturesItem = document.createElement('li')
+      elFeaturesItem.textContent = feat
+      elFeaturesItem.classList.add('badge', 'bg-primary', 'me-1', 'mb-1')
+      featuresWrapp.appendChild(elFeaturesItem)
+      console.log(elFeaturesItem.textContent);
+    })
   });
-
  
 
 };

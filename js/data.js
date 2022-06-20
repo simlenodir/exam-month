@@ -23,7 +23,7 @@ let products = [
       height: 100
     },
     isFavorite: false,
-    features: ""
+    features: "Beautiful"
   },
   {
     id: 3,
@@ -36,7 +36,7 @@ let products = [
       height: 84
     },
     isFavorite: false,
-    features: ""
+    features: "Tame"
   }
 ]
 
