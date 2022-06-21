@@ -26,7 +26,12 @@ let modaleditHeight = document.getElementById("parrot_height1");
 let modaleditFeatures = document.getElementById("features1");
 let parrotsCount = document.getElementById("parrots-count");
 
-parrotsCount.textContent = "counts" + ": " + products.length;
+// here liked parrots
+let elLikedParList =  document.getElementById('liked-list')
+let elLikedTemp = document.getElementById('liked-template').content
+let likedFragmentBox = document.createDocumentFragment()
+let likedMarks = []
+ let count = parrotsCount.textContent = "counts" + ": " + products.length;
 
 const renderParrots = (products) => {
   elWrapperListParrots.innerHTML = null;
@@ -72,7 +77,6 @@ const renderParrots = (products) => {
       elFeaturesItem.textContent = feat
       elFeaturesItem.classList.add('badge', 'bg-primary', 'me-1', 'mb-1')
       featuresWrapp.appendChild(elFeaturesItem)
-      console.log(elFeaturesItem.textContent);
     })
   });
  
@@ -80,6 +84,7 @@ const renderParrots = (products) => {
 };
 renderParrots(products);
 function handleAddCard(evt) {
+  count += 1
   evt.preventDefault();
   let data = {
     id: uuid.v4(),
@@ -144,7 +149,39 @@ function handleSearch(evt) {
 }
 let copyCard = [];
 
+// here started render likeMarks
+elLikedParList.innerHTML = ''
+ let renderLikeMarks = (arr) =>{
+  let likeMark = elLikedTemp.cloneNode(true)
+  let likeMarkItem = likeMark.querySelector('.like-item')
+  let likeMarkTitle = likeMark.querySelector('.liked-title')
+  let removeBtn = likeMark.querySelector('.remove')
+  console.log(likeMarkItem);
+  likeMarkItem.dataset.id = arr[0].id
+  likeMarkTitle.textContent = arr[0].title
+  removeBtn.dataset.id = arr[0].id
+  likedFragmentBox.appendChild(likeMarkItem)
+  
+  
+  elLikedParList.appendChild(likedFragmentBox)
+ }
+
+// here we started remove likeMark 
+let removeLikeMark = (evt) => {
+  if (evt.target.matches('.remove')){
+let deleteItem = evt.target.closest('li')
+
+let deletedLikemark = likedMarks.filter((evt) => evt.id !=deleteItem.id )
+console.log(deletedLikemark);
+likedMarks = deletedLikemark
+renderLikeMarks (deletedLikemark) 
+elLikedParList.innerHTML = ''
+  }
+}
+
+// Here 3 functions of edit , delete , liked 
 function handleChange(evt) {
+     count --
   if (evt.target.matches(".delete")) {
     let deletedItem = evt.target.closest("li");
     let itemId = deletedItem.dataset.id;
@@ -166,13 +203,17 @@ function handleChange(evt) {
     console.log(copyCard);
   }
   if (evt.target.matches(".liked")) {
-    // likedCard = [];
+    likedMarks = []
     let likedCard = products.find((item) => evt.target.dataset.id == item.id);
-    let changedCOl = document.querySelector('.changed')
-    console.log(changedCOl);
-    changedCOl.classList.add('fa-solid')
-    changedCOl.classList.add('fa-star')
+    likedMarks.push(likedCard)
+    // let likedParrots = likedMarks.find(item => item.id = evt.target.dataset.id)
+
+    // if (!likedParrots) {
+    //   likedMarks.push(likedMarks)
+    // }
+
   }
+  renderLikeMarks(likedMarks)
 }
 
 function changeCardContent(evt) {
@@ -195,3 +236,4 @@ elEditData.addEventListener("submit", changeCardContent);
 elAddCardData.addEventListener("submit", handleAddCard);
 elSearchForm.addEventListener("submit", handleSearch);
 elWrapperListParrots.addEventListener("click", handleChange);
+elLikedParList.addEventListener('click', removeLikeMark)

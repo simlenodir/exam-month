@@ -91,8 +91,6 @@
         </div>
         <!-- card template -->
         <ul class="row list-unstyled g-3 parrots-wrapper d-flex flex-wrap">
-
-
         </ul>
         <!-- card template end -->
       </section>
@@ -100,11 +98,13 @@
       <section class="col-3">
         <h2 class="h4 mb-4">Favorite parrots</h2>
         <!-- here are bookmark -->
-        <ul class="list-unstyled">
-          <li class="card p-3 mb-2">
-            <h3 class="card-title h5 mb-2">Qizil Ara</h3>
-            <button class="btn btn-danger btn-sm d-inline" style="width: fit-content" type="button">Remove</button>
-          </li>
+        <ul id="liked-list" class="list-unstyled">
+          <template id="liked-template">
+            <li class="card p-3 mb-2 like-item">
+              <h3 class="liked-title"></h3>
+              <button class="btn btn-danger btn-sm d-inline remove" style="width: fit-content" type="button">Remove</button>
+            </li>
+          </template>
         </ul>
 
       </section>
